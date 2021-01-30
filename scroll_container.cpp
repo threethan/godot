@@ -446,7 +446,7 @@ void ScrollContainer::_notification(int p_what) {
 		if (drag_touching) {
 			// Set the target to where the scroll will be if it continues for inertial_scroll_duration_touch seconds.
 			Vector2 pos = Vector2(h_scroll->get_value(), v_scroll->get_value());
-			inertial_target = pos + drag_speed * inertial_scroll_duration_touch * 1000 * get_physics_process_delta_time();
+			inertial_target = pos + drag_speed * inertial_scroll_duration_touch * get_physics_process_delta_time() * 500; // 500 = 1000 ms in a second divided by 2 (slope of x^2 at x=1)
 			// Reset drag_speed
 			drag_speed = Vector2();
 		}
