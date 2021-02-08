@@ -49,11 +49,9 @@ class ScrollContainer : public Container {
 	Vector2 drag_speed;
 	Vector2 drag_accum;
 	Vector2 drag_from;
-	Vector2 last_drag_accum;
 	float last_drag_time;
-	float time_since_motion;
 	bool drag_touching;
-	bool drag_touching_deaccel;
+	bool animating;
 	bool click_handled;
 	bool beyond_deadzone;
 
@@ -62,8 +60,24 @@ class ScrollContainer : public Container {
 
 	int deadzone;
 	bool follow_focus;
+	bool always_smoothed;
+	float scroll_step;
+
+	float smooth_scroll_duration_button;
+	float inertial_scroll_duration_touch;
+	float inertial_scroll_duration_current;
+
+	float inertial_time_left;
+	Vector2 expected_scroll_value;
+	Vector2 inertial_start;
+	Vector2 inertial_target;
 
 	void _cancel_drag();
+	void _button_scroll(bool horizontal, float amount);
+	void _start_inertial_scroll();
+
+	void _check_expected_scroll();
+	void _update_expected_scroll();
 
 protected:
 	Size2 get_minimum_size() const override;
